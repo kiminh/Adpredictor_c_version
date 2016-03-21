@@ -161,7 +161,7 @@ void load_batch_samples(FILE *fp,std::vector<std::vector<std::pair<int,float> > 
                     printf("line num is%d\n",cnt);
                     break;
                 }
-                    vec_label.push_back(std::pair<int,std::vector<std::pair<int,float> > >(y,x));
+                vec_label.push_back(std::pair<int,std::vector<std::pair<int,float> > >(y,x));
                 ++local_cnt;
                 ++cnt;
                 x.clear();
@@ -170,6 +170,7 @@ void load_batch_samples(FILE *fp,std::vector<std::vector<std::pair<int,float> > 
                 if(local_cnt >= max_batch_cnt)
                     break;
             }
+            //if samples are random ,then this step is not neccessary;
             std::random_shuffle(vec_label.begin(),vec_label.end());
             batch_samples.resize(vec_label.size());
             labels.resize(vec_label.size());
@@ -220,8 +221,8 @@ void train_batch(const char* input_file, const char* test_file, const char* mode
                   adp->update(x,y);
                   if (real_cnt%10000==0)
                   {
-                        //printf("iter:%d\tavg_loss:%f\n",real_cnt,log_loss_all/real_cnt);
-                        //fflush(stdout);
+                        printf("iter:%d\tavg_loss:%f\n",real_cnt,log_loss_all/real_cnt);
+                        fflush(stdout);
                   }
               }
               //printf("process %d\n",cnt);
