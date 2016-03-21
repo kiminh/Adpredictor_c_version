@@ -73,7 +73,7 @@ bool adpred::load_para(const char* model,std::vector<double>& mu_vec,std::vector
     ifstream fin(model);
     if ( fin.fail() )
     {
-        printf("model fail\n");
+        printf("load model fail\n");
         return false;
     }
     double beta,sigma0;
@@ -87,6 +87,7 @@ bool adpred::load_para(const char* model,std::vector<double>& mu_vec,std::vector
         mu_vec.push_back(mu);
         sigma_vec.push_back(sigma);
     }
+    fin.close();
     return true;
 }
 bool adpred::save_para(const char* model)
